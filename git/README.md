@@ -1,15 +1,12 @@
 # Choreo App
 
-A tool for learning choreography from video. Instead of endlessly 
-rewinding, this app gives you precise controls to slow down, loop, 
-and analyze movement in any video file.
+A tool for learning/creating choreography from video or songs. Instead of endlessly rewinding, this app gives you precise controls to slow down, loop, and analyze movement in any video file.
 
 ## Features (in progress)
 - Playback speed control
 - Loop over custom start/stop points
 - Frame-by-frame stepping
 - Beat detection (kicks and snares visualized separately)
-- Pose estimation overlay
 - Encrypted storage and secure shareable links
 
 ## Tech Stack
@@ -46,3 +43,4 @@ choreo-app/
 - [ ] Pose estimation
 - [ ] FastAPI backend
 - [ ] Flutter frontend
+
