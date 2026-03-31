@@ -1,7 +1,11 @@
 import sys
 import types
 import unittest
+from pathlib import Path
 from unittest.mock import MagicMock, patch
+
+
+sys.path.append(str(Path(__file__).resolve().parents[1] / "src"))
 
 
 moviepy_module = types.ModuleType("moviepy")
@@ -12,7 +16,7 @@ moviepy_module.editor = editor_module
 sys.modules.setdefault("moviepy", moviepy_module)
 sys.modules["moviepy.editor"] = editor_module
 
-import src.video_controls as video_controls
+import video_controls
 
 
 class TestVideoControls(unittest.TestCase):

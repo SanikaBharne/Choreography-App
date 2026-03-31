@@ -1,11 +1,12 @@
 import sys
 import tempfile
 import unittest
+from pathlib import Path
 
 import numpy as np
 from scipy.io import wavfile
 
-sys.path.append('src')
+sys.path.append(str(Path(__file__).resolve().parents[1] / "src"))
 
 import beat_detection
 
