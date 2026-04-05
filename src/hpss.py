@@ -1,36 +1,5 @@
 import numpy as np
-from scipy.io import wavfile
 from scipy.ndimage import median_filter
-
-
-def load_audio(filepath):
-    """Load a WAV file and normalize its sample values.
-
-    Args:
-        filepath: Path to the WAV file to read.
-
-    Returns:
-        A tuple of ``(sample_rate, data)`` where ``data`` is normalized to roughly
-        the range ``[-1, 1]`` and stereo audio is converted to mono.
-
-    Raises:
-        ValueError: If ``filepath`` is empty.
-    """
-    if not filepath:
-        raise ValueError("filepath must be a non-empty path to a WAV file")
-    
-    sample_rate, data = wavfile.read(filepath)
-    
-    # save dtype before mean converts it to float
-    original_dtype = data.dtype
-    
-    if data.ndim == 2:
-        data = np.mean(data, 1)
-    
-    if np.issubdtype(original_dtype, np.integer):
-        data = data / np.iinfo(original_dtype).max
-    
-    return sample_rate, data
 
 def stft(audio, window_size=2048, hop_length=512):
     """Compute the short-time Fourier transform of an audio signal.

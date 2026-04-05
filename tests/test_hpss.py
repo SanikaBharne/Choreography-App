@@ -5,7 +5,6 @@ import unittest
 from pathlib import Path
 
 import numpy as np
-from scipy.io import wavfile
 from scipy.ndimage import median_filter
 
 
@@ -16,43 +15,6 @@ import hpss
 
 
 class TestHPSS(unittest.TestCase):
-    def test_load_audio_normalizes_mono_samples(self):
-        """load_audio returns the sample rate and normalized mono samples."""
-        sample_rate = 22050
-        samples = np.array([0, 16384, -16384, 32767], dtype=np.int16)
-
-        with tempfile.NamedTemporaryFile(suffix=".wav") as wav_file:
-            wavfile.write(wav_file.name, sample_rate, samples)
-            actual_rate, actual_samples = hpss.load_audio(wav_file.name)
-
-        self.assertEqual(sample_rate, actual_rate)
-        np.testing.assert_allclose(actual_samples, samples / 32767)
-
-    def test_load_audio_averages_and_normalizes_stereo_samples(self):
-        """load_audio averages stereo channels before normalization."""
-        sample_rate = 44100
-        samples = np.array(
-            [
-                [32767, -32767],
-                [16384, 16384],
-                [-16384, 0],
-            ],
-            dtype=np.int16,
-        )
-
-        with tempfile.NamedTemporaryFile(suffix=".wav") as wav_file:
-            wavfile.write(wav_file.name, sample_rate, samples)
-            actual_rate, actual_samples = hpss.load_audio(wav_file.name)
-
-        expected = np.mean(samples, axis=1) / 32767
-        self.assertEqual(sample_rate, actual_rate)
-        np.testing.assert_allclose(actual_samples, expected)
-
-    def test_load_audio_raises_for_empty_path(self):
-        """load_audio rejects an empty filepath."""
-        with self.assertRaises(ValueError):
-            hpss.load_audio("")
-
     def test_stft_returns_windowed_rfft_columns(self):
         """stft applies a Hann window, pads the final chunk, and returns transposed bins."""
         audio = np.array([1.0, 2.0, 3.0, 4.0, 5.0])

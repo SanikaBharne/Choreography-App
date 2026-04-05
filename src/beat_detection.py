@@ -1,33 +1,4 @@
-import os
-
-from scipy.io import wavfile
 import numpy as np
-
-
-def load_audio(filepath):
-    """Load a WAV file from disk.
-
-    Args:
-        filepath: Path to the WAV file to read.
-
-    Returns:
-        A tuple of `(sample_rate, data)` returned by `scipy.io.wavfile.read`.
-
-    Raises:
-        ValueError: If `filepath` is empty or does not point to a `.wav` file.
-        FileNotFoundError: If `filepath` does not exist.
-    """
-    if not isinstance(filepath, (str, os.PathLike)):
-        raise TypeError("filepath must be a path-like value")
-    if not filepath:
-        raise ValueError("filepath must not be empty")
-    if not str(filepath).lower().endswith(".wav"):
-        raise ValueError("filepath must point to a .wav file")
-    if not os.path.exists(filepath):
-        raise FileNotFoundError(f"No file found at: {filepath}")
-    sample_rate, data = wavfile.read(filepath)
-    return sample_rate, data
-
 
 def get_frame(data, frame_size=1024):
     """Split audio data into equally sized frames.

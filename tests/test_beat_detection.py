@@ -1,10 +1,8 @@
 import sys
-import tempfile
 import unittest
 from pathlib import Path
 
 import numpy as np
-from scipy.io import wavfile
 
 sys.path.append(str(Path(__file__).resolve().parents[1] / "src"))
 
@@ -12,28 +10,6 @@ import beat_detection
 
 
 class TestBeatDetection(unittest.TestCase):
-    def test_load_audio(self):
-        """load_audio returns the sample rate and samples from a WAV file."""
-        sample_rate = 44100
-        samples = np.array([0, 1000, -1000, 500], dtype=np.int16)
-
-        with tempfile.NamedTemporaryFile(suffix=".wav") as wav_file:
-            wavfile.write(wav_file.name, sample_rate, samples)
-            actual_rate, actual_samples = beat_detection.load_audio(wav_file.name)
-
-        self.assertEqual(sample_rate, actual_rate)
-        np.testing.assert_array_equal(samples, actual_samples)
-
-    def test_load_audio_asserts_on_empty_path(self):
-        """load_audio raises ValueError for an empty path."""
-        with self.assertRaises(ValueError):
-            beat_detection.load_audio("")
-
-    def test_load_audio_requires_wav_extension(self):
-        """load_audio raises ValueError for a non-WAV path."""
-        with self.assertRaises(ValueError):
-            beat_detection.load_audio("song.mp3")
-
     def test_get_frame(self):
         """get_frame splits sample data into frames of the requested size."""
         frames = beat_detection.get_frame([1, 2, 3, 4, 5], frame_size=2)
