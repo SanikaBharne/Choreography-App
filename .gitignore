@@ -1,0 +1,17 @@
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+*.mp4
+*.mov
+*.wav
+*.mp3.claude/
+.claude/
+test_files/
+__pycache__/
+workspace/
+separated/
+frontend/flutter_app/.dart_tool/
+frontend/flutter_app/build/
+frontend/flutter_app/.flutter-plugins
+frontend/flutter_app/.flutter-plugins-dependencies
